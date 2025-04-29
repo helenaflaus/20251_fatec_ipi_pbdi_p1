@@ -26,7 +26,26 @@ CREATE TABLE tb_students_performance (
 -- ----------------------------------------------------------------
 -- 4 Salário versus estudos
 --escreva a sua solução aqui
-
+DO $$
+DECLARE
+   -- 1. Declaração cursor vinculado
+   cur_AlunoFreq CURSOR FOR 
+   SELECT SALARY, PREP_EXAM FROM tb_students_performance
+   WHERE (SALARY = 5) AND (PREP_EXAM = 2);
+   v_qtdalunos INT;
+BEGIN
+  -- 2. Abertura do cursor
+  OPEN cur_AlunoFreq;
+  FETCH cur_AlunoFreq INTO v_qtdalunos;
+  WHILE FOUND
+	LOOP 
+        FETCH cur_AlunoFreq INTO v_qtdalunos ; -- iteração
+		END LOOP;
+	CLOSE cur_AlunoFreq;
+	-- 4. Apresentando as variáveis solicitadas -> quantidade de alunos que costumam se preparar com frequência
+	RAISE NOTICE '%', v_qtdalunos;
+END;
+$$
 
 -- ----------------------------------------------------------------
 -- 5. Limpeza de valores NULL
