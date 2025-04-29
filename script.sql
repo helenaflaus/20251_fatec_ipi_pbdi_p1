@@ -80,6 +80,32 @@ $$
 -- ----------------------------------------------------------------
 -- 5. Limpeza de valores NULL
 --escreva a sua solução aqui
-
+DO $$
+DECLARE
+    cur_deletenull REFCURSOR;
+    tupla RECORD;
+BEGIN
+-- scroll para poder voltar ao início
+    OPEN cur_deletenull SCROLL FOR
+    SELECT
+    *
+    FROM
+    tb_students_performance;
+    LOOP
+        FETCH cur_deletenull INTO tupla;
+        EXIT WHEN NOT FOUND;
+        IF tupla.GRADE IS NULL THEN
+        DELETE FROM tb_students_performance WHERE CURRENT OF cur_deletenull;
+        END IF;
+    END LOOP;
+    --tuplas remanescentes, de baixo para cima
+    LOOP
+        FETCH BACKWARD FROM cur_deletenull INTO tupla;
+        EXIT WHEN NOT FOUND;
+        RAISE NOTICE '%', tupla;
+    END LOOP;
+    CLOSE cur_deletenull;
+END;
+$$
 
 -- ----------------------------------------------------------------
