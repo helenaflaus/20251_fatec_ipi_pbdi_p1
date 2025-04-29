@@ -8,8 +8,6 @@
 
 | Nome completo | RA |
 |:--------------|:---|
-|                |     |
-|                |     |
-|                |     |
-|                |     |
-|                |     |
+| Helena Batocchio Pinto Flausino | 2041382411018 |
+| Julia Augustinho | 2041382411006 |
+| Ana Carolina Lima Tavares | 2041382411035 |
