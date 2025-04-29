@@ -50,7 +50,32 @@ $$
 -- ----------------------------------------------------------------
 -- 3 Resultado em função dos estudos
 --escreva a sua solução aqui
-
+DO $$
+DECLARE
+  cur_alunosaprovados REFCURSOR;
+  v_GRADE INT := NOT 0;
+  v_PREP_STUDY INT;
+    v_qtdalunosaprovado INT;
+BEGIN
+OPEN cur_alunosaprovados FOR EXECUTE
+    format
+    ('
+    SELECT
+    PREP_STUDY, GRADE
+    FROM
+    tb_students_performance
+    WHERE (v_PREP_STUDY = 1) AND (GRADE NOT 0)
+    ',
+    v_qtdalunosaprovados
+);
+    LOOP
+        FETCH cur_alunosaprovados INTO v_qtdalunosaprovados;
+        EXIT WHEN NOT FOUND;
+    RAISE NOTICE '%', v_qtdalunosaprovados;
+    END LOOP;
+    CLOSE cur_alunosaprovados;
+END;
+$$
 
 
 -- ----------------------------------------------------------------
